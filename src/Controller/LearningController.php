@@ -15,5 +15,11 @@ class LearningController
 
         return new Response('I like trains.');
     }
-
+    /**
+     * @Route("/about-me")
+     */
+    public function showMyName()
+    {
+        $this->render('example.twig', ['name' => 'BeCode']);
+    }
 }
