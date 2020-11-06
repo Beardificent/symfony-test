@@ -5,11 +5,18 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class LearnController extends AbstractController
 {
 
-    private string $name;
+    private string $name = 'Unknown';
+    private $session;
+
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
 
     /**
      * @Route("/about-me")
@@ -18,7 +25,8 @@ class LearnController extends AbstractController
     {
         return $this->render('learn/aboutMe.html.twig', [
             'controller_name' => 'LearnController',
-            'about_me' => 'I like trains'
+            'about_me' => 'I like trains',
+            'name' => $this->name
         ]);
     }
 
