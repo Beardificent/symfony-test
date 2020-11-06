@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class LearnController extends AbstractController
 {
 
-    private string $name = 'Unknown';
+    private string $name;
     private $session;
 
     public function __construct(SessionInterface $session)
@@ -23,19 +23,23 @@ class LearnController extends AbstractController
      */
     public function aboutMe(): Response
     {
+        $this->name = $this->session->get('name', 'Unknown');
         return $this->render('learn/aboutMe.html.twig', [
-            'controller_name' => 'LearnController',
             'about_me' => 'I like trains',
             'name' => $this->name
         ]);
     }
 
     /**
-     * @Route("/")
+     * @Route("/", name="home")
      */
     public function showMyName(): Response
     {
-        if(isset($_POST['name'])){
+        $this->name = $this->session->get('name', 'Unknown');
+        return $this->render('learn/showMyName.html.twig',
+            ['name' => $this->name]);
+        //OLD CODE
+        /*if(isset($_POST['name'])){
             $this->name = $_POST['name'];
             return $this->render('learn/nameChange.html.twig');
 
@@ -43,15 +47,16 @@ class LearnController extends AbstractController
             return $this->render('learn/showMyName.html.twig',
                 ['name' => 'Unknown']);
         }
+        */
     }
 
     /**
      * @Route("/changeMyName", name="changeMyName", methods={"POST"})
      */
-    public function changeMyName()
+    public function changeMyName(SessionInterface $session)
     {
-
-        return $this->render('learn/nameChange.html.twig', ['name' => $_POST['name']]);
+        $this->session->set('name', $_POST['name']);
+        return $this->redirectToRoute('home');
     }
 
 }
