@@ -29,23 +29,21 @@ class LearnController extends AbstractController
     {
         if(isset($_POST['name'])){
             $this->name = $_POST['name'];
+            return $this->render('learn/nameChange.html.twig');
+
         }else{
-            $this->name = 'Unknown';
+            return $this->render('learn/showMyName.html.twig',
+                ['name' => 'Unknown']);
         }
-
-        return $this->render('learn/showMyName.html.twig', [
-            'name' => $this->name,
-
-        ]);
-
-
     }
 
-
+    /**
+     * @Route("/changeMyName", name="changeMyName", methods={"POST"})
+     */
     public function changeMyName()
     {
 
+        return $this->render('learn/nameChange.html.twig', ['name' => $_POST['name']]);
     }
-
 
 }
