@@ -2,6 +2,7 @@
 
 <div class="page-wrapper">
     <h1>Hello {{ name }}! ✅</h1>
+    <a href="{{ path('about') }}">About me</a>
 
     <form action="{{ path('changeMyName') }}" method="post">
         <label for="name">Name: </label>

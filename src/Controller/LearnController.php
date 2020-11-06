@@ -19,7 +19,7 @@ class LearnController extends AbstractController
     }
 
     /**
-     * @Route("/about-me")
+     * @Route("/about-me", name="about")
      */
     public function aboutMe(): Response
     {
