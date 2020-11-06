@@ -19,15 +19,19 @@ class LearnController extends AbstractController
     }
 
     /**
-     * @Route("/about-me", name="about")
+     * @Route("/about-becode", name="about")
      */
     public function aboutMe(): Response
     {
         $this->name = $this->session->get('name', 'Unknown');
+        if($this->name == 'Unknown'){
+            return $this->redirectToRoute('home');
+        }else {
         return $this->render('learn/aboutMe.html.twig', [
             'about_me' => 'I like trains',
             'name' => $this->name
         ]);
+        }
     }
 
     /**
